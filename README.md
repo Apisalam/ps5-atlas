@@ -49,7 +49,7 @@ Generated files:
 
 ## Automatic refresh
 
-**Execution status:** the update workflow successfully completed on GitHub Actions on 2026-10-21 ([verified run](https://github.com/Apisalam/ps5-atlas/actions/runs/39615294107)), including generator tests, catalog build, validation, evidence upload and a metadata commit. This confirms a successful cloud refresh; future scheduled runs still depend on GitHub Actions availability. Standalone CI has been adjusted to run Python versions sequentially following earlier runner-startup failures. See [verification evidence](docs/verification.md).
+**Execution status:** the update workflow successfully completed on GitHub Actions on 2026-10-21 ([verified run](https://github.com/Apisalam/ps5-atlas/actions/runs/39615294107)), including generator tests, catalog build, validation, evidence upload and a metadata commit. This confirms a successful cloud refresh; future scheduled runs still depend on GitHub Actions availability. Standalone CI is also verified: [run 39617775971](https://github.com/Apisalam/ps5-atlas/actions/runs/39617775971) passed both Python 3.12 and 3.14 regression suites and metadata validation on a single runner. See [verification evidence](docs/verification.md).
 
 **Update PS5 Atlas catalog** runs at minute 17 every six hours (UTC), on relevant pushes, and through **Actions → Run workflow**. GitHub schedules may be delayed. Only successful validation on `main` can publish generated catalogs. Feature branches build and upload artifacts without pushing. CI runs offline regression tests on Python 3.12 and 3.14.
 
