@@ -1,0 +1,19 @@
+{
+  "sources": [
+    {
+      "name": "DLPS",
+      "url": "https://pegasus-catalog.fly.dev/catalogs/dlps.json",
+      "enabled": true
+    },
+    {
+      "name": "Pippo",
+      "url": "https://pegasus-catalog.fly.dev/catalogs/pippo.json",
+      "enabled": true
+    },
+    {
+      "name": "PFS",
+      "url": "https://pegasus-catalog.fly.dev/catalogs/pfs.json",
+      "enabled": true
+    }
+  ]
+}
