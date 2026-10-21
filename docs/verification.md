@@ -29,3 +29,9 @@ The workflow definitions are syntax-checked locally, contain real test/build/val
 ## Limits of this verification
 
 Metadata only: no binary bytes were downloaded, so this does not independently recompute file hashes. The client retains the expected hashes for its own download verification. PS5 Library compatibility was checked against the documented JSON contract; its console parser and application runtime were not executed. No firmware compatibility is claimed. Third-party availability and licensing may change after this snapshot.
+
+## Follow-up: verified GitHub runner execution
+
+On 2026-10-21, [Update PS5 Atlas catalog run 39615294107](https://github.com/Apisalam/ps5-atlas/actions/runs/39615294107) completed successfully on `main`. The runner executed checkout, Python setup, generator tests, building, schema validation, metadata/link verification, artifact upload and a generated metadata commit (`c675e39b2e85e9d03f9baa865e1bccf6e33bd123`). The checked-in build report records 4 entries and source status `ok` at 2026-10-21T14:24:48Z. This supersedes the original account-level blocker for the update workflow. A single successful scheduled-capable run does not prove future cron reliability or native console runtime compatibility.
+
+The standalone test workflow was modified in commit `6968d2717b842c2d24a75e9da70b5d5caff87903` to run Python 3.12 and 3.14 serially on one runner, add manual dispatch, and avoid concurrent runner allocation. Its new cloud outcome must be checked independently; earlier failed runs had empty runner steps.
