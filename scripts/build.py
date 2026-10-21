@@ -278,7 +278,12 @@ def validate_config(config):
 
 
 def entry_identity(entry):
-    return digest({k: v for k, v in entry.items() if k not in ('id', 'atlas')})
+    identity = {k: v for k, v in entry.items() if k not in ('id', 'atlas')}
+    # Opaque Pegasus metadata may distinguish editions/backports even when
+    # client-facing fields match. Developer identity also disambiguates IDs.
+    identity['upstream_identity'] = {k: v for k, v in entry.get('atlas', {}).items()
+                                     if k in ('original_package', 'repository')}
+    return digest(identity)
 
 
 def group_identity(entry):

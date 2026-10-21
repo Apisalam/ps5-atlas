@@ -49,6 +49,8 @@ Generated files:
 
 ## Automatic refresh
 
+**Execution status:** the first GitHub runs were rejected before any runner started by an account-level restriction. Cloud execution and scheduled publication are therefore not verified yet. The checked-in snapshot is validated locally; automatic refresh requires restoring GitHub Actions availability. See [verification evidence](docs/verification.md).
+
 **Update PS5 Atlas catalog** runs at minute 17 every six hours (UTC), on relevant pushes, and through **Actions → Run workflow**. GitHub schedules may be delayed. Only successful validation on `main` can publish generated catalogs. Feature branches build and upload artifacts without pushing. CI runs offline regression tests on Python 3.12 and 3.14.
 
 A partial outage uses that source's last successful snapshot for up to seven days and reports `degraded`/`stale`. If no source is fresh, the build exits unsuccessfully and preserves the prior catalog. The workflow still saves its failure report and uploads evidence. Failed schema validation prevents publication. Action versions are pinned to commit SHAs, jobs have time limits, and refreshes on a branch are serialized.

@@ -3,7 +3,7 @@
   "sources": {
     "homebrew-reviewed": {
       "active": {
-        "0c99114950d6bbd7d1329279ec86f17e05563e9366cb78b023920cec11654c40": {
+        "1f58c123582d67cf76e75797cd5d46010a4cbb83c6beb9c1ae0baa3c55a6916e": {
           "atlas": {
             "author": "AngelXex",
             "content_kind": "game",
@@ -27,31 +27,7 @@
           "title_id": "PPSA59322",
           "version": "1.00"
         },
-        "1a4c992929cd21edf92ea575074ddaf1156fdce37cc35d52ad4202560f32cb60": {
-          "atlas": {
-            "author": "STL1te",
-            "content_kind": "game",
-            "license": "MIT",
-            "repository": "https://github.com/STL1te/MedievalTennis",
-            "upstream_format": "zip",
-            "upstream_updated": "2026-10-16T22:57:07-04:00"
-          },
-          "cover": "https://prosperostore.net/assets/icon-PPSA28319.de37913cfe8c.webp",
-          "description": "Classic ping pong in a medieval setting: play against the computer or a friend on the same console.",
-          "files": [
-            {
-              "name": "PPSA28319.zip",
-              "sha256": "6426468091b42f6512a456004e47a0807ae83fc2af82a4408bef8a51103fbd48",
-              "url": "https://github.com/STL1te/MedievalTennis/releases/download/01.000.000/PPSA28319.zip"
-            }
-          ],
-          "kind": "game",
-          "platform": "ps5",
-          "title": "Middle Ages Ping Pong",
-          "title_id": "PPSA28319",
-          "version": "01.000.000"
-        },
-        "d44ed6ba7234c384fb531d7207eb03398eb2ba60e066b58f4e346e5adb8f6b1f": {
+        "20eeecdbbae1fa8613b007a2b1d50d9a9727640de89c4d3bd4bb5ed81dfac174": {
           "atlas": {
             "author": "LedyBacer",
             "content_kind": "app",
@@ -74,10 +50,34 @@
           "title": "ProsperoLight",
           "title_id": "PPSA99002",
           "version": "01.000.110"
+        },
+        "7dd9308fa5a05d0d45fdee72258dc3be06c5d77b894f3bf43351037f648b3e4a": {
+          "atlas": {
+            "author": "STL1te",
+            "content_kind": "game",
+            "license": "MIT",
+            "repository": "https://github.com/STL1te/MedievalTennis",
+            "upstream_format": "zip",
+            "upstream_updated": "2026-10-16T22:57:07-04:00"
+          },
+          "cover": "https://prosperostore.net/assets/icon-PPSA28319.de37913cfe8c.webp",
+          "description": "Classic ping pong in a medieval setting: play against the computer or a friend on the same console.",
+          "files": [
+            {
+              "name": "PPSA28319.zip",
+              "sha256": "6426468091b42f6512a456004e47a0807ae83fc2af82a4408bef8a51103fbd48",
+              "url": "https://github.com/STL1te/MedievalTennis/releases/download/01.000.000/PPSA28319.zip"
+            }
+          ],
+          "kind": "game",
+          "platform": "ps5",
+          "title": "Middle Ages Ping Pong",
+          "title_id": "PPSA28319",
+          "version": "01.000.000"
         }
       },
       "current": {
-        "0c99114950d6bbd7d1329279ec86f17e05563e9366cb78b023920cec11654c40": {
+        "1f58c123582d67cf76e75797cd5d46010a4cbb83c6beb9c1ae0baa3c55a6916e": {
           "atlas": {
             "author": "AngelXex",
             "content_kind": "game",
@@ -101,31 +101,7 @@
           "title_id": "PPSA59322",
           "version": "1.00"
         },
-        "1a4c992929cd21edf92ea575074ddaf1156fdce37cc35d52ad4202560f32cb60": {
-          "atlas": {
-            "author": "STL1te",
-            "content_kind": "game",
-            "license": "MIT",
-            "repository": "https://github.com/STL1te/MedievalTennis",
-            "upstream_format": "zip",
-            "upstream_updated": "2026-10-16T22:57:07-04:00"
-          },
-          "cover": "https://prosperostore.net/assets/icon-PPSA28319.de37913cfe8c.webp",
-          "description": "Classic ping pong in a medieval setting: play against the computer or a friend on the same console.",
-          "files": [
-            {
-              "name": "PPSA28319.zip",
-              "sha256": "6426468091b42f6512a456004e47a0807ae83fc2af82a4408bef8a51103fbd48",
-              "url": "https://github.com/STL1te/MedievalTennis/releases/download/01.000.000/PPSA28319.zip"
-            }
-          ],
-          "kind": "game",
-          "platform": "ps5",
-          "title": "Middle Ages Ping Pong",
-          "title_id": "PPSA28319",
-          "version": "01.000.000"
-        },
-        "d44ed6ba7234c384fb531d7207eb03398eb2ba60e066b58f4e346e5adb8f6b1f": {
+        "20eeecdbbae1fa8613b007a2b1d50d9a9727640de89c4d3bd4bb5ed81dfac174": {
           "atlas": {
             "author": "LedyBacer",
             "content_kind": "app",
@@ -148,11 +124,35 @@
           "title": "ProsperoLight",
           "title_id": "PPSA99002",
           "version": "01.000.110"
+        },
+        "7dd9308fa5a05d0d45fdee72258dc3be06c5d77b894f3bf43351037f648b3e4a": {
+          "atlas": {
+            "author": "STL1te",
+            "content_kind": "game",
+            "license": "MIT",
+            "repository": "https://github.com/STL1te/MedievalTennis",
+            "upstream_format": "zip",
+            "upstream_updated": "2026-10-16T22:57:07-04:00"
+          },
+          "cover": "https://prosperostore.net/assets/icon-PPSA28319.de37913cfe8c.webp",
+          "description": "Classic ping pong in a medieval setting: play against the computer or a friend on the same console.",
+          "files": [
+            {
+              "name": "PPSA28319.zip",
+              "sha256": "6426468091b42f6512a456004e47a0807ae83fc2af82a4408bef8a51103fbd48",
+              "url": "https://github.com/STL1te/MedievalTennis/releases/download/01.000.000/PPSA28319.zip"
+            }
+          ],
+          "kind": "game",
+          "platform": "ps5",
+          "title": "Middle Ages Ping Pong",
+          "title_id": "PPSA28319",
+          "version": "01.000.000"
         }
       },
       "fingerprint": "8bd1c691b7acd057eac4eae93a7574d36e5420ce6c56b1fb82969cb8fc5c1c05",
       "history": {
-        "0c99114950d6bbd7d1329279ec86f17e05563e9366cb78b023920cec11654c40": {
+        "1f58c123582d67cf76e75797cd5d46010a4cbb83c6beb9c1ae0baa3c55a6916e": {
           "atlas": {
             "author": "AngelXex",
             "content_kind": "game",
@@ -176,31 +176,7 @@
           "title_id": "PPSA59322",
           "version": "1.00"
         },
-        "1a4c992929cd21edf92ea575074ddaf1156fdce37cc35d52ad4202560f32cb60": {
-          "atlas": {
-            "author": "STL1te",
-            "content_kind": "game",
-            "license": "MIT",
-            "repository": "https://github.com/STL1te/MedievalTennis",
-            "upstream_format": "zip",
-            "upstream_updated": "2026-10-16T22:57:07-04:00"
-          },
-          "cover": "https://prosperostore.net/assets/icon-PPSA28319.de37913cfe8c.webp",
-          "description": "Classic ping pong in a medieval setting: play against the computer or a friend on the same console.",
-          "files": [
-            {
-              "name": "PPSA28319.zip",
-              "sha256": "6426468091b42f6512a456004e47a0807ae83fc2af82a4408bef8a51103fbd48",
-              "url": "https://github.com/STL1te/MedievalTennis/releases/download/01.000.000/PPSA28319.zip"
-            }
-          ],
-          "kind": "game",
-          "platform": "ps5",
-          "title": "Middle Ages Ping Pong",
-          "title_id": "PPSA28319",
-          "version": "01.000.000"
-        },
-        "d44ed6ba7234c384fb531d7207eb03398eb2ba60e066b58f4e346e5adb8f6b1f": {
+        "20eeecdbbae1fa8613b007a2b1d50d9a9727640de89c4d3bd4bb5ed81dfac174": {
           "atlas": {
             "author": "LedyBacer",
             "content_kind": "app",
@@ -223,13 +199,37 @@
           "title": "ProsperoLight",
           "title_id": "PPSA99002",
           "version": "01.000.110"
+        },
+        "7dd9308fa5a05d0d45fdee72258dc3be06c5d77b894f3bf43351037f648b3e4a": {
+          "atlas": {
+            "author": "STL1te",
+            "content_kind": "game",
+            "license": "MIT",
+            "repository": "https://github.com/STL1te/MedievalTennis",
+            "upstream_format": "zip",
+            "upstream_updated": "2026-10-16T22:57:07-04:00"
+          },
+          "cover": "https://prosperostore.net/assets/icon-PPSA28319.de37913cfe8c.webp",
+          "description": "Classic ping pong in a medieval setting: play against the computer or a friend on the same console.",
+          "files": [
+            {
+              "name": "PPSA28319.zip",
+              "sha256": "6426468091b42f6512a456004e47a0807ae83fc2af82a4408bef8a51103fbd48",
+              "url": "https://github.com/STL1te/MedievalTennis/releases/download/01.000.000/PPSA28319.zip"
+            }
+          ],
+          "kind": "game",
+          "platform": "ps5",
+          "title": "Middle Ages Ping Pong",
+          "title_id": "PPSA28319",
+          "version": "01.000.000"
         }
       },
-      "last_success": "2026-10-21T14:10:19+00:00"
+      "last_success": "2026-10-21T14:13:59+00:00"
     },
     "supertuxkart-developer": {
       "active": {
-        "fec8c0d5fd3726e276767558fd14b26826fe214df8755be6f07df4710dea9a91": {
+        "172a072354f4238cc929122900c2407e429f13f7ea0eaed3a75d0fa0053584ae": {
           "atlas": {
             "license": "GPL-3.0-or-later",
             "prerelease": true,
@@ -253,7 +253,7 @@
         }
       },
       "current": {
-        "fec8c0d5fd3726e276767558fd14b26826fe214df8755be6f07df4710dea9a91": {
+        "172a072354f4238cc929122900c2407e429f13f7ea0eaed3a75d0fa0053584ae": {
           "atlas": {
             "license": "GPL-3.0-or-later",
             "prerelease": true,
@@ -278,7 +278,7 @@
       },
       "fingerprint": "f6997c6af03396c5fb5173b9fd24e29ce4c83ba1226ac845e35c96058d4058b8",
       "history": {
-        "fec8c0d5fd3726e276767558fd14b26826fe214df8755be6f07df4710dea9a91": {
+        "172a072354f4238cc929122900c2407e429f13f7ea0eaed3a75d0fa0053584ae": {
           "atlas": {
             "license": "GPL-3.0-or-later",
             "prerelease": true,
@@ -301,7 +301,7 @@
           "version": "00.001.000"
         }
       },
-      "last_success": "2026-10-21T14:10:19+00:00"
+      "last_success": "2026-10-21T14:13:59+00:00"
     }
   }
 }

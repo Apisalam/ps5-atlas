@@ -159,6 +159,12 @@ class BuildTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             b.pegasus({'packages': [package]}, {})
 
+    def test_opaque_pegasus_edition_fields_are_not_deduplicated(self):
+        package = {'title': 'Homebrew', 'url': 'https://example.org/game.zip', 'filename': 'game.zip'}
+        rows, _ = b.pegasus({'packages': [{**package, 'edition': 'Original'},
+                                        {**package, 'edition': 'Revised'}]}, {})
+        self.assertNotEqual(b.entry_identity(rows[0]), b.entry_identity(rows[1]))
+
     def test_catalog_is_independent_of_upstream_order(self):
         records = [entry('1'), entry('2'), entry('3', region='USA')]
         self.assertEqual(self.run_build([source()], {'entries': records}), 0)
