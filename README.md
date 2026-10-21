@@ -18,7 +18,9 @@ The catalog uses PS5 Library's documented native `entries` / `files` shape. SHA-
 
 ## Current coverage
 
-The reviewed seed set contains **SuperTuxKart, ccleste (Celeste Classic), Middle Ages Ping Pong and ProsperoLight**. It is a deliberately small authorized homebrew set, not a complete commercial PS5 games library. Newly discovered publishers require review before import; existing approved sources refresh automatically.
+The reviewed set contains **seven titles**: SuperTuxKart, ccleste (Celeste Classic), Middle Ages Ping Pong, ProsperoLight, ScreenTester5, SymphonyStation5 and VITA5. The last three use direct developer release sources, with per-source filename filters and immutable license evidence. This is an authorized homebrew set, not a complete commercial PS5 games library. Newly discovered publishers require review before import; existing approved sources refresh automatically.
+
+SymphonyStation5 is a prerelease and needs your own Navidrome/OpenSubsonic music server. VITA5 requires separately configured components documented by its developer; Atlas lists only its native PS5 app, using upstream title ID `PPSA17035`. ScreenTester5 is a display diagnostic tool. These requirements remain visible in each catalog description.
 
 The three original sources remain in `atlas-sources.json`, disabled: public reachability was tested, but permission to redistribute their downloads was not established. Public availability alone is not treated as authorization.
 
@@ -33,9 +35,11 @@ python scripts/validate.py
 python scripts/check_links.py
 ```
 
-`check_links.py` checks the seeded GitHub release assets against current publisher metadata, including SHA-256. It fetches metadata only, not binaries. It intentionally fails for non-GitHub files; review a separate verification method before enabling such sources.
+`check_links.py` checks fresh current GitHub release assets, including every alternative mirror and multipart file, against publisher metadata and SHA-256. It explicitly reports skipped stale/historical entries, preserving the seven-day outage fallback without making new availability claims about those entries. It fetches metadata only, not binaries. It intentionally fails for fresh non-GitHub files; review a separate verification method before enabling such sources.
 
 Use `python scripts/build.py --config path/to/config.json --output-dir path/to/output` for an isolated build. No code depends on the working directory.
+
+Validate that isolated build with `python scripts/validate.py --root path/to/output --config path/to/config.json`, then `python scripts/check_links.py --root path/to/output`. Validation also runs under `python -O`; optimization cannot disable its checks.
 
 Generated files:
 
@@ -49,7 +53,7 @@ Generated files:
 
 ## Automatic refresh
 
-**Execution status:** the update workflow successfully completed on GitHub Actions on 2026-10-21 ([verified run](https://github.com/Apisalam/ps5-atlas/actions/runs/39615294107)), including generator tests, catalog build, validation, evidence upload and a metadata commit. This confirms a successful cloud refresh; future scheduled runs still depend on GitHub Actions availability. Standalone CI is also verified: [run 39617775971](https://github.com/Apisalam/ps5-atlas/actions/runs/39617775971) passed both Python 3.12 and 3.14 regression suites and metadata validation on a single runner. See [verification evidence](docs/verification.md).
+See [verification evidence](docs/verification.md) for current local and GitHub Actions results. CI runs the offline regression suite on Python 3.12 and 3.14, validates the checked-in catalog (including under optimization), and lints both workflows with checksum-pinned actionlint 1.7.12.
 
 **Update PS5 Atlas catalog** runs at minute 17 every six hours (UTC), on relevant pushes, and through **Actions → Run workflow**. GitHub schedules may be delayed. Only successful validation on `main` can publish generated catalogs. Feature branches build and upload artifacts without pushing. CI runs offline regression tests on Python 3.12 and 3.14.
 

@@ -37,6 +37,64 @@
       }
     },
     {
+      "id": "screentester-developer",
+      "name": "ScreenTester5 — developer releases",
+      "adapter": "github-releases",
+      "repository": "Marice/ScreenTester5",
+      "title": "ScreenTester5",
+      "title_id": "PPSA69420",
+      "asset_pattern": "PPSA69420.zip",
+      "archive_format": "zip",
+      "content_kind": "tool",
+      "license": "GPL-3.0-or-later",
+      "description": "Native PS5 display test patterns and pixel checks. Requires ShadowMountPlus. Flashing test modes have an upstream warning; see the developer's documentation.",
+      "enabled": true,
+      "authorization": {
+        "status": "approved",
+        "basis": "Developer publishes PPSA69420.zip under GPL-3.0-or-later. Reviewed README, LICENSE and third-party notices: native tooling GPL, SDL2 zlib, libiconv LGPL, font8x8 public domain. Only the native title ZIP is imported, with its publisher digest.",
+        "evidence_url": "https://github.com/Marice/ScreenTester5/blob/72913163d6a73518fb4133d95221ca64afa6aac8/THIRD_PARTY_NOTICES.md"
+      }
+    },
+    {
+      "id": "symphonystation-developer",
+      "name": "SymphonyStation5 — developer releases",
+      "adapter": "github-releases",
+      "repository": "TsvetomirGT/SymphonyStation5",
+      "title": "SymphonyStation5",
+      "title_id": "PPSA17641",
+      "asset_pattern": "SymphonyStation5-v*.zip",
+      "include_prereleases": true,
+      "archive_format": "zip",
+      "content_kind": "app",
+      "license": "GPL-3.0-or-later",
+      "description": "Prerelease native PS5 Navidrome/OpenSubsonic music client. Requires your own reachable music server and authorized music; no music library is supplied by Atlas.",
+      "enabled": true,
+      "authorization": {
+        "status": "approved",
+        "basis": "Developer's release v0.1.0 publishes SymphonyStation5-v0.1.0.zip. GPL-3.0-or-later notices identify the binary's corresponding tagged source and compatible dependency/font/asset licenses, and explicitly exclude proprietary SDK/runtime/game files. Standalone libc and checksum assets are excluded.",
+        "evidence_url": "https://github.com/TsvetomirGT/SymphonyStation5/blob/cc96b3a13d10960ef02d0c0f5c4635035559894a/THIRD_PARTY_NOTICES.md"
+      }
+    },
+    {
+      "id": "vita5-developer",
+      "name": "VITA5 — developer native app releases",
+      "adapter": "github-releases",
+      "repository": "StonedModder/VITA5",
+      "title": "VITA5",
+      "title_id": "PPSA17035",
+      "asset_pattern": "PPSA17035.zip",
+      "archive_format": "zip",
+      "content_kind": "app",
+      "license": "GPL-3.0-or-later",
+      "description": "PS Vita USB streaming client for PS5. This catalog includes only the native PS5 app. Upstream also requires separately configured VitaUSBStream, a Vita input plugin and a PS5 dock payload; consult its release notes. Atlas does not install or configure those components.",
+      "enabled": true,
+      "authorization": {
+        "status": "approved",
+        "basis": "Developer's GPL-3.0-or-later README and LICENSE, with third-party notices stating no proprietary runtime, key or game file is included. Release v1.0.0 explicitly identifies PPSA17035.zip as the PS5 native app; Vita plugin and ELF payload assets are excluded. Use upstream title ID rather than the aggregator's conflicting ID.",
+        "evidence_url": "https://github.com/StonedModder/VITA5/blob/414fa550a86ba7f0f6aed580b844a3ffe9cd613e/README.md"
+      }
+    },
+    {
       "id": "dlps",
       "name": "DLPS",
       "url": "https://pegasus-catalog.fly.dev/catalogs/dlps.json",
