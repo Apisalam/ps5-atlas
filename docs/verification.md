@@ -18,14 +18,15 @@ The new regressions cover allowlist expansion/removal, preservation of history a
 
 ## GitHub Actions
 
-Current expansion runs will be recorded here after execution. The branch update workflow builds and uploads evidence without publishing. Once merged, the main update workflow additionally commits validated generated metadata.
+The implementation was merged through [PR #2](https://github.com/Apisalam/ps5-atlas/pull/2) at commit `fbadc8ea42c79dae670fabbe5b470c4832549111`. Both main workflows completed successfully on 2026-10-21:
 
-Earlier verified baseline runs (four titles, 23 tests) remain available as historical evidence:
+- [Main test run 39620792190](https://github.com/Apisalam/ps5-atlas/actions/runs/39620792190): 41 regression tests on each of Python 3.12 and 3.14, offline metadata validation, optimized validation and workflow lint.
+- [Main refresh run 39620792121](https://github.com/Apisalam/ps5-atlas/actions/runs/39620792121): 41 generator tests, successful build of seven entries, offline validation, all seven publisher assets/digests verified with zero skips, artifact upload and successful publication.
+- The refresh produced bot commit [c3e7f24de6027dd38c0ced395bb7a8a73c08c27e](https://github.com/Apisalam/ps5-atlas/commit/c3e7f24de6027dd38c0ced395bb7a8a73c08c27e). Its build report records status `ok`, seven entries and catalog version `c7dc9006180085885dc321fa2dec495ff80039ea033cce4ee9f9235fa1de30ce`.
 
-- [Update workflow 39615294107](https://github.com/Apisalam/ps5-atlas/actions/runs/39615294107): successful build, validation, metadata verification, artifact upload and bot commit.
-- [Test workflow 39617775971](https://github.com/Apisalam/ps5-atlas/actions/runs/39617775971): successful Python 3.12 and 3.14 checks.
+Before merge, [branch refresh 39620650530](https://github.com/Apisalam/ps5-atlas/actions/runs/39620650530), [push tests 39620650522](https://github.com/Apisalam/ps5-atlas/actions/runs/39620650522) and [PR tests 39620659075](https://github.com/Apisalam/ps5-atlas/actions/runs/39620659075) also passed. The downloaded branch artifact passed local offline validation and its catalog matched the local generated catalog byte-for-byte. Generated JSON explicitly uses LF on every platform, with a Git attributes rule preserving that encoding of line endings.
 
-Earlier failed attempts were rejected before runner startup. The successful baseline runs superseded that infrastructure blocker; they do not establish the expanded implementation's result.
+After main publication, all five generated JSON documents were fetched from the public `raw.githubusercontent.com/Apisalam/ps5-atlas/main/` addresses. They passed validation together against the approved source config; the public catalog matched the validated GitHub output byte-for-byte. Both advertised client endpoints are present. This verifies the published result in addition to the workflow logs.
 
 CI now additionally lints both workflows with actionlint 1.7.12 and verifies the Linux download against SHA-256 `8aca8db96f1b94770f1b0d72b6dddcb1ebb8123cb3712530b08cc387b349a3d8`. Regression suites remain serial on one runner per workflow, on Python 3.12 and 3.14. The update workflow saves generated files as an artifact, including on failure; it publishes catalogs only after successful validation on main. A total build failure saves only its error report.
 
