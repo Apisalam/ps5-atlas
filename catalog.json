@@ -1,0 +1,104 @@
+{
+  "entries": [
+    {
+      "atlas": {
+        "author": "AngelXex",
+        "content_kind": "game",
+        "license": "MIT",
+        "repository": "https://github.com/darkxex/PS5_Celeste",
+        "upstream_format": "zip",
+        "upstream_updated": "2026-10-16T22:57:07-04:00"
+      },
+      "cover": "https://prosperostore.net/assets/icon-PPSA59322.4c82a7ca627f.webp",
+      "description": "This is a C source port of the original celeste (Celeste classic) for the PICO-8, designed to be portable. Now you can enjoy the port on your PS5.",
+      "files": [
+        {
+          "name": "PPSA59322.zip",
+          "sha256": "96861b81c1fbaac818080d1bf958b575e6b44d2c258684e1931f2940cee2fb43",
+          "url": "https://github.com/darkxex/PS5_Celeste/releases/download/1.00/PPSA59322.zip"
+        }
+      ],
+      "id": "atlas-0c99114950d6bbd7d1329279ec86f17e05563e9366cb78b023920cec11654c40",
+      "kind": "game",
+      "platform": "ps5",
+      "title": "ccleste",
+      "title_id": "PPSA59322",
+      "version": "1.00"
+    },
+    {
+      "atlas": {
+        "author": "STL1te",
+        "content_kind": "game",
+        "license": "MIT",
+        "repository": "https://github.com/STL1te/MedievalTennis",
+        "upstream_format": "zip",
+        "upstream_updated": "2026-10-16T22:57:07-04:00"
+      },
+      "cover": "https://prosperostore.net/assets/icon-PPSA28319.de37913cfe8c.webp",
+      "description": "Classic ping pong in a medieval setting: play against the computer or a friend on the same console.",
+      "files": [
+        {
+          "name": "PPSA28319.zip",
+          "sha256": "6426468091b42f6512a456004e47a0807ae83fc2af82a4408bef8a51103fbd48",
+          "url": "https://github.com/STL1te/MedievalTennis/releases/download/01.000.000/PPSA28319.zip"
+        }
+      ],
+      "id": "atlas-1a4c992929cd21edf92ea575074ddaf1156fdce37cc35d52ad4202560f32cb60",
+      "kind": "game",
+      "platform": "ps5",
+      "title": "Middle Ages Ping Pong",
+      "title_id": "PPSA28319",
+      "version": "01.000.000"
+    },
+    {
+      "atlas": {
+        "author": "LedyBacer",
+        "content_kind": "app",
+        "license": "GPL-3.0",
+        "repository": "https://github.com/LedyBacer/ProsperoLight",
+        "upstream_format": "zip",
+        "upstream_updated": "2026-10-18T14:03:59-03:00"
+      },
+      "cover": "https://prosperostore.net/assets/icon-PPSA99002.2aa5bd5410d9.webp",
+      "description": "Unofficial Moonlight game streaming port for PS5.",
+      "files": [
+        {
+          "name": "PPSA99002.zip",
+          "sha256": "f29935f3bd9d61926c1ea63f8d34019fff19ee993e8d030ee373c004efd974ba",
+          "url": "https://github.com/LedyBacer/ProsperoLight/releases/download/01.000.110/PPSA99002.zip"
+        }
+      ],
+      "id": "atlas-d44ed6ba7234c384fb531d7207eb03398eb2ba60e066b58f4e346e5adb8f6b1f",
+      "kind": "game",
+      "platform": "ps5",
+      "title": "ProsperoLight",
+      "title_id": "PPSA99002",
+      "version": "01.000.110"
+    },
+    {
+      "atlas": {
+        "license": "GPL-3.0-or-later",
+        "prerelease": true,
+        "released": "2026-10-12T20:50:32Z",
+        "repository": "https://github.com/Marice/stk-ps5"
+      },
+      "description": "Native PS5 port of SuperTuxKart. Alpha builds may have bugs; the developer's release notes describe known limitations.",
+      "files": [
+        {
+          "name": "PPSA69421.zip",
+          "sha256": "f2240bf0e67cf585ae7c6acc16068e1b8bef5e3c1b5f7e8ae550053d937b712a",
+          "url": "https://github.com/Marice/stk-ps5/releases/download/00.001.000/PPSA69421.zip"
+        }
+      ],
+      "id": "atlas-fec8c0d5fd3726e276767558fd14b26826fe214df8755be6f07df4710dea9a91",
+      "kind": "game",
+      "platform": "ps5",
+      "size": "746285994 B",
+      "title": "SuperTuxKart",
+      "title_id": "PPSA69421",
+      "version": "00.001.000"
+    }
+  ],
+  "name": "PS5 Atlas",
+  "version": "6b3d79b7663d81c9b61c6aaa8c1f3983ffa85f96e8b034af1827553366eecaec"
+}

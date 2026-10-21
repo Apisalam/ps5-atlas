@@ -1,19 +1,9 @@
 {
   "sources": [
     {
-      "name": "DLPS",
-      "url": "https://pegasus-catalog.fly.dev/catalogs/dlps.json",
-      "enabled": true
-    },
-    {
-      "name": "Pippo",
-      "url": "https://pegasus-catalog.fly.dev/catalogs/pippo.json",
-      "enabled": true
-    },
-    {
-      "name": "PFS",
-      "url": "https://pegasus-catalog.fly.dev/catalogs/pfs.json",
-      "enabled": true
+      "enabled": true,
+      "name": "PS5 Atlas",
+      "url": "https://raw.githubusercontent.com/Apisalam/ps5-atlas/main/catalog.json"
     }
   ]
 }
