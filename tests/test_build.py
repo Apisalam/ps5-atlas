@@ -71,6 +71,41 @@ class BuildTests(unittest.TestCase):
         self.assertEqual(len(self.read('catalog.json')['entries']), 1)
         self.assertEqual(len(self.read('catalog-state.json')['sources']['one']['history']), 3)
 
+    def test_superseded_mirror_does_not_resurrect_after_next_version(self):
+        self.run_build([source()], {'entries': [entry()]})
+        replacement = entry(files=[{'url': 'https://mirror.example/new.zip'}])
+        self.run_build([source()], {'entries': [replacement]}, day=1)
+        self.run_build([source()], {'entries': [entry('2.0')]}, day=2)
+        rows = self.read('catalog.json')['entries']
+        self.assertEqual(len(rows), 2)
+        self.assertNotIn(entry()['files'], [r['files'] for r in rows])
+        self.assertEqual(len(self.read('catalog-state.json')['sources']['one']['history']), 3)
+
+    def test_presentation_change_keeps_history_but_never_uses_old_cache(self):
+        self.run_build([source()], {'entries': [entry()]})
+        changed = source(name='Renamed')
+        self.assertEqual(self.run_build([changed], OSError('offline'), day=1), 1)
+        self.assertEqual(self.run_build([changed], {'entries': [entry('2.0')]}, day=1), 0)
+        self.assertEqual(len(self.read('catalog.json')['entries']), 2)
+
+    def test_homebrew_allowlist_expansion_preserves_history_and_removal_prunes_it(self):
+        repos = ['https://github.com/a/app', 'https://github.com/b/app']
+        src = source(adapter='homebrew', allow_repositories=repos[:1])
+        def app(repo, version):
+            return {'titleid': 'PPSA12345', 'name': 'App', 'version': version, 'license': 'MIT',
+                    'source_repo': repo, 'artifact_url': repo + '/releases/download/' + version + '/app.zip',
+                    'sha256': 'a'*64, 'format': 'zip'}
+        def refresh(apps, day):
+            return self.run_build([src], {src['url']: {'apps': apps}}, day=day)
+        self.assertEqual(refresh([app(repos[0], '1')], 0), 0)
+        src['allow_repositories'] = repos
+        self.assertEqual(refresh([app(repos[0], '2'), app(repos[1], '1')], 1), 0)
+        self.assertEqual(len(self.read('catalog.json')['entries']), 3)
+        src['allow_repositories'] = repos[1:]
+        self.assertEqual(refresh([app(repos[1], '1')], 2), 0)
+        history = self.read('catalog-state.json')['sources']['one']['history']
+        self.assertEqual({e['atlas']['repository'] for e in history.values()}, {repos[1]})
+
     def test_partial_failure_keeps_cached_source_and_marks_stale(self):
         sources = [source(), source('two')]
         self.run_build(sources, {sources[0]['url']: {'entries': [entry()]}, sources[1]['url']: {'entries': [entry('2')]}})
@@ -172,6 +207,31 @@ class BuildTests(unittest.TestCase):
         self.assertEqual(self.run_build([source()], {'entries': list(reversed(records))}), 0)
         self.assertEqual((self.root / 'catalog.json').read_bytes(), before)
 
+    def test_duplicate_provenance_is_independent_of_source_order(self):
+        a, z = source('a'), source('z')
+        payloads = {a['url']: {'entries': [entry(atlas={'author': 'A'})]},
+                    z['url']: {'entries': [entry(atlas={'author': 'Z'})]}}
+        self.run_build([z, a], payloads)
+        before = (self.root / 'catalog.json').read_bytes()
+        self.run_build([a, z], payloads)
+        self.assertEqual((self.root / 'catalog.json').read_bytes(), before)
+
+    def test_config_types_and_catalog_url_are_validated(self):
+        for src in [source(enabled='false'), source(adapter='typo'),
+                    source(adapter='homebrew', allow_repositories=['https://other.example/repo'])]:
+            self.assertEqual(self.run_build([src], {'entries': [entry()]}), 1)
+        with self.assertRaises(ValueError):
+            b.validate_config({'sources': [], 'catalog_url': 'http://example.org/catalog'})
+
+    def test_transport_formats_and_homebrew_region_are_preserved(self):
+        self.assertNotEqual(b.group_identity(entry(format='', atlas={'upstream_format': 'zip'})),
+                            b.group_identity(entry(format='', atlas={'upstream_format': 'rar'})))
+        app = {'titleid': 'PPSA12345', 'name': 'App', 'version': '1', 'license': 'MIT',
+               'source_repo': 'https://github.com/a/app', 'region': 'USA', 'firmware': '13.60',
+               'artifact_url': 'https://github.com/a/app/releases/download/1/app.zip', 'sha256': 'a'*64}
+        rows, _ = b.homebrew({'apps': [app]}, {'allow_repositories': [app['source_repo']]})
+        self.assertEqual((rows[0]['region'], rows[0]['firmware']), ('USA', '13.60'))
+
     def test_transport_size_limit_and_retry(self):
         class Response:
             def __enter__(self):
@@ -227,6 +287,22 @@ class BuildTests(unittest.TestCase):
             b.validate_entry(entry(files=[{'url': 'https://example.org/a', 'sha256': 'bad'}]))
         with self.assertRaises(ValueError):
             b.validate_entry(entry(source_sets=[{'host': 'bad', 'files': []}]))
+
+    def test_native_types_and_first_mirror_contract(self):
+        for fields in [{'format': 'zip'}, {'platform': 'pc'}, {'kind': 'tool'}, {'atlas': None},
+                       {'source_sets': {}}, {'source_sets': [None]},
+                       {'files': [{'url': 'https://example.org/app.zip', 'sha256': int('1'*64)}]},
+                       {'files': [{'url': 'https://example.org/app.zip', 'name': 123}]},
+                       {'source_sets': [{'files': [{'url': 'https://other.example/app.zip'}]}]}]:
+            with self.subTest(fields=fields), self.assertRaises(ValueError):
+                b.validate_entry(entry(**fields))
+
+    def test_pegasus_password_and_checksums_reach_native_fields(self):
+        rows, _ = b.pegasus({'packages': [{'title': 'App', 'password': 'example',
+                                         'url': 'https://example.org/app.zip', 'sha256': 'c'*64}]}, {})
+        b.validate_entry(rows[0])
+        self.assertEqual(rows[0]['password'], 'example')
+        self.assertEqual(rows[0]['files'][0]['sha256'], 'c'*64)
 
 
 if __name__ == '__main__':

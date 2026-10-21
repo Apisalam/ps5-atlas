@@ -1,13 +1,35 @@
 {
-  "catalog_version": "51bafeca0078b75d97983a8e485f4fb26356721046e685b944e0767fde9a3bbe",
-  "checked_at": "2026-10-21T14:24:48+00:00",
-  "records": 4,
+  "catalog_version": "c7dc9006180085885dc321fa2dec495ff80039ea033cce4ee9f9235fa1de30ce",
+  "checked_at": "2026-10-21T14:52:11+00:00",
+  "records": 7,
   "sources": [
+    {
+      "id": "dlps",
+      "reason": "Public reachability was confirmed, but permission to redistribute the listed downloads was not established. Needs documented authorization before enabling.",
+      "status": "disabled"
+    },
     {
       "filtered": 100,
       "historical_records": 0,
       "id": "homebrew-reviewed",
       "records": 3,
+      "status": "ok"
+    },
+    {
+      "id": "pfs",
+      "reason": "Public reachability was confirmed, but permission to redistribute the listed downloads was not established. Needs documented authorization before enabling.",
+      "status": "disabled"
+    },
+    {
+      "id": "pippo",
+      "reason": "Public reachability was confirmed, but permission to redistribute the listed downloads was not established. Needs documented authorization before enabling.",
+      "status": "disabled"
+    },
+    {
+      "filtered": 0,
+      "historical_records": 0,
+      "id": "screentester-developer",
+      "records": 1,
       "status": "ok"
     },
     {
@@ -18,19 +40,18 @@
       "status": "ok"
     },
     {
-      "id": "dlps",
-      "reason": "Public reachability was confirmed, but permission to redistribute the listed downloads was not established. Needs documented authorization before enabling.",
-      "status": "disabled"
+      "filtered": 0,
+      "historical_records": 0,
+      "id": "symphonystation-developer",
+      "records": 1,
+      "status": "ok"
     },
     {
-      "id": "pippo",
-      "reason": "Public reachability was confirmed, but permission to redistribute the listed downloads was not established. Needs documented authorization before enabling.",
-      "status": "disabled"
-    },
-    {
-      "id": "pfs",
-      "reason": "Public reachability was confirmed, but permission to redistribute the listed downloads was not established. Needs documented authorization before enabling.",
-      "status": "disabled"
+      "filtered": 0,
+      "historical_records": 0,
+      "id": "vita5-developer",
+      "records": 1,
+      "status": "ok"
     }
   ],
   "status": "ok"

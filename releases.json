@@ -44,6 +44,20 @@
     },
     {
       "format": null,
+      "id": "atlas-4d1b0f2aa9b5a810d5a3e66467ac331180cf583bb1aa85ce0816b1afd375a3b9",
+      "latest_in_variant": true,
+      "region": null,
+      "sources": [
+        "vita5-developer"
+      ],
+      "stale": false,
+      "status": "current",
+      "title": "VITA5",
+      "title_id": "PPSA17035",
+      "version": "1.0.0"
+    },
+    {
+      "format": null,
       "id": "atlas-7dd9308fa5a05d0d45fdee72258dc3be06c5d77b894f3bf43351037f648b3e4a",
       "latest_in_variant": true,
       "region": null,
@@ -54,6 +68,34 @@
       "status": "current",
       "title": "Middle Ages Ping Pong",
       "title_id": "PPSA28319",
+      "version": "01.000.000"
+    },
+    {
+      "format": null,
+      "id": "atlas-be07f719480551cecf84f2496af40ba864a95b9f3bd0f78524bd03966355c745",
+      "latest_in_variant": true,
+      "region": null,
+      "sources": [
+        "symphonystation-developer"
+      ],
+      "stale": false,
+      "status": "current",
+      "title": "SymphonyStation5",
+      "title_id": "PPSA17641",
+      "version": "0.1.0"
+    },
+    {
+      "format": null,
+      "id": "atlas-c3ca977c420164820db4a71f463f48805daaf5e4b58cf9d699c33af5faff615c",
+      "latest_in_variant": true,
+      "region": null,
+      "sources": [
+        "screentester-developer"
+      ],
+      "stale": false,
+      "status": "current",
+      "title": "ScreenTester5",
+      "title_id": "PPSA69420",
       "version": "01.000.000"
     }
   ],

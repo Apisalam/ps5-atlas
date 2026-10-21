@@ -225,16 +225,102 @@
           "version": "01.000.000"
         }
       },
-      "last_success": "2026-10-21T14:24:48+00:00"
+      "history_policy": "5dc39cc625bcd53cf816678dc938f4bf03a51869ac3a64ee053896fb685760e3",
+      "last_success": "2026-10-21T14:52:11+00:00"
+    },
+    "screentester-developer": {
+      "active": {
+        "c3ca977c420164820db4a71f463f48805daaf5e4b58cf9d699c33af5faff615c": {
+          "atlas": {
+            "content_kind": "tool",
+            "license": "GPL-3.0-or-later",
+            "prerelease": false,
+            "released": "2026-10-03T10:08:48Z",
+            "repository": "https://github.com/Marice/ScreenTester5",
+            "upstream_format": "zip"
+          },
+          "description": "Native PS5 display test patterns and pixel checks. Requires ShadowMountPlus. Flashing test modes have an upstream warning; see the developer's documentation.",
+          "files": [
+            {
+              "name": "PPSA69420.zip",
+              "sha256": "49a5c6d7bbb08f5a1539feb65b7fd2b537b6d7b304bdd3eed1c923e4ccbec8fd",
+              "url": "https://github.com/Marice/ScreenTester5/releases/download/01.000.000/PPSA69420.zip"
+            }
+          ],
+          "kind": "game",
+          "platform": "ps5",
+          "size": "1235565 B",
+          "title": "ScreenTester5",
+          "title_id": "PPSA69420",
+          "version": "01.000.000"
+        }
+      },
+      "current": {
+        "c3ca977c420164820db4a71f463f48805daaf5e4b58cf9d699c33af5faff615c": {
+          "atlas": {
+            "content_kind": "tool",
+            "license": "GPL-3.0-or-later",
+            "prerelease": false,
+            "released": "2026-10-03T10:08:48Z",
+            "repository": "https://github.com/Marice/ScreenTester5",
+            "upstream_format": "zip"
+          },
+          "description": "Native PS5 display test patterns and pixel checks. Requires ShadowMountPlus. Flashing test modes have an upstream warning; see the developer's documentation.",
+          "files": [
+            {
+              "name": "PPSA69420.zip",
+              "sha256": "49a5c6d7bbb08f5a1539feb65b7fd2b537b6d7b304bdd3eed1c923e4ccbec8fd",
+              "url": "https://github.com/Marice/ScreenTester5/releases/download/01.000.000/PPSA69420.zip"
+            }
+          ],
+          "kind": "game",
+          "platform": "ps5",
+          "size": "1235565 B",
+          "title": "ScreenTester5",
+          "title_id": "PPSA69420",
+          "version": "01.000.000"
+        }
+      },
+      "fingerprint": "821dc132ec898c37a2f15fdc198f5dae6ea529fbfd6346ba08a632875affaad5",
+      "history": {
+        "c3ca977c420164820db4a71f463f48805daaf5e4b58cf9d699c33af5faff615c": {
+          "atlas": {
+            "content_kind": "tool",
+            "license": "GPL-3.0-or-later",
+            "prerelease": false,
+            "released": "2026-10-03T10:08:48Z",
+            "repository": "https://github.com/Marice/ScreenTester5",
+            "upstream_format": "zip"
+          },
+          "description": "Native PS5 display test patterns and pixel checks. Requires ShadowMountPlus. Flashing test modes have an upstream warning; see the developer's documentation.",
+          "files": [
+            {
+              "name": "PPSA69420.zip",
+              "sha256": "49a5c6d7bbb08f5a1539feb65b7fd2b537b6d7b304bdd3eed1c923e4ccbec8fd",
+              "url": "https://github.com/Marice/ScreenTester5/releases/download/01.000.000/PPSA69420.zip"
+            }
+          ],
+          "kind": "game",
+          "platform": "ps5",
+          "size": "1235565 B",
+          "title": "ScreenTester5",
+          "title_id": "PPSA69420",
+          "version": "01.000.000"
+        }
+      },
+      "history_policy": "995d84d31f24cd6c40cd67fbb6e1b99a0c4046135a669cd0a7e248359049a39b",
+      "last_success": "2026-10-21T14:52:11+00:00"
     },
     "supertuxkart-developer": {
       "active": {
         "172a072354f4238cc929122900c2407e429f13f7ea0eaed3a75d0fa0053584ae": {
           "atlas": {
+            "content_kind": "game",
             "license": "GPL-3.0-or-later",
             "prerelease": true,
             "released": "2026-10-12T20:50:32Z",
-            "repository": "https://github.com/Marice/stk-ps5"
+            "repository": "https://github.com/Marice/stk-ps5",
+            "upstream_format": "zip"
           },
           "description": "Native PS5 port of SuperTuxKart. Alpha builds may have bugs; the developer's release notes describe known limitations.",
           "files": [
@@ -255,10 +341,12 @@
       "current": {
         "172a072354f4238cc929122900c2407e429f13f7ea0eaed3a75d0fa0053584ae": {
           "atlas": {
+            "content_kind": "game",
             "license": "GPL-3.0-or-later",
             "prerelease": true,
             "released": "2026-10-12T20:50:32Z",
-            "repository": "https://github.com/Marice/stk-ps5"
+            "repository": "https://github.com/Marice/stk-ps5",
+            "upstream_format": "zip"
           },
           "description": "Native PS5 port of SuperTuxKart. Alpha builds may have bugs; the developer's release notes describe known limitations.",
           "files": [
@@ -280,10 +368,12 @@
       "history": {
         "172a072354f4238cc929122900c2407e429f13f7ea0eaed3a75d0fa0053584ae": {
           "atlas": {
+            "content_kind": "game",
             "license": "GPL-3.0-or-later",
             "prerelease": true,
             "released": "2026-10-12T20:50:32Z",
-            "repository": "https://github.com/Marice/stk-ps5"
+            "repository": "https://github.com/Marice/stk-ps5",
+            "upstream_format": "zip"
           },
           "description": "Native PS5 port of SuperTuxKart. Alpha builds may have bugs; the developer's release notes describe known limitations.",
           "files": [
@@ -301,7 +391,174 @@
           "version": "00.001.000"
         }
       },
-      "last_success": "2026-10-21T14:24:48+00:00"
+      "history_policy": "d1e49d94a115e256c5b1e6b56c2bbb9576b0eddbc80c657336262de008c286a7",
+      "last_success": "2026-10-21T14:52:11+00:00"
+    },
+    "symphonystation-developer": {
+      "active": {
+        "be07f719480551cecf84f2496af40ba864a95b9f3bd0f78524bd03966355c745": {
+          "atlas": {
+            "content_kind": "app",
+            "license": "GPL-3.0-or-later",
+            "prerelease": true,
+            "released": "2026-10-07T19:14:21Z",
+            "repository": "https://github.com/TsvetomirGT/SymphonyStation5",
+            "upstream_format": "zip"
+          },
+          "description": "Prerelease native PS5 Navidrome/OpenSubsonic music client. Requires your own reachable music server and authorized music; no music library is supplied by Atlas.",
+          "files": [
+            {
+              "name": "SymphonyStation5-v0.1.0.zip",
+              "sha256": "5327e36b9a57776a7bb7a32a16865d54b28be3b1622280c4dbc9e6ee469e2993",
+              "url": "https://github.com/TsvetomirGT/SymphonyStation5/releases/download/v0.1.0/SymphonyStation5-v0.1.0.zip"
+            }
+          ],
+          "kind": "game",
+          "platform": "ps5",
+          "size": "12682118 B",
+          "title": "SymphonyStation5",
+          "title_id": "PPSA17641",
+          "version": "0.1.0"
+        }
+      },
+      "current": {
+        "be07f719480551cecf84f2496af40ba864a95b9f3bd0f78524bd03966355c745": {
+          "atlas": {
+            "content_kind": "app",
+            "license": "GPL-3.0-or-later",
+            "prerelease": true,
+            "released": "2026-10-07T19:14:21Z",
+            "repository": "https://github.com/TsvetomirGT/SymphonyStation5",
+            "upstream_format": "zip"
+          },
+          "description": "Prerelease native PS5 Navidrome/OpenSubsonic music client. Requires your own reachable music server and authorized music; no music library is supplied by Atlas.",
+          "files": [
+            {
+              "name": "SymphonyStation5-v0.1.0.zip",
+              "sha256": "5327e36b9a57776a7bb7a32a16865d54b28be3b1622280c4dbc9e6ee469e2993",
+              "url": "https://github.com/TsvetomirGT/SymphonyStation5/releases/download/v0.1.0/SymphonyStation5-v0.1.0.zip"
+            }
+          ],
+          "kind": "game",
+          "platform": "ps5",
+          "size": "12682118 B",
+          "title": "SymphonyStation5",
+          "title_id": "PPSA17641",
+          "version": "0.1.0"
+        }
+      },
+      "fingerprint": "bce8d8b242802b5bc21a12e44cc6b79e1ecb101ee37cebd52201997c93a9166e",
+      "history": {
+        "be07f719480551cecf84f2496af40ba864a95b9f3bd0f78524bd03966355c745": {
+          "atlas": {
+            "content_kind": "app",
+            "license": "GPL-3.0-or-later",
+            "prerelease": true,
+            "released": "2026-10-07T19:14:21Z",
+            "repository": "https://github.com/TsvetomirGT/SymphonyStation5",
+            "upstream_format": "zip"
+          },
+          "description": "Prerelease native PS5 Navidrome/OpenSubsonic music client. Requires your own reachable music server and authorized music; no music library is supplied by Atlas.",
+          "files": [
+            {
+              "name": "SymphonyStation5-v0.1.0.zip",
+              "sha256": "5327e36b9a57776a7bb7a32a16865d54b28be3b1622280c4dbc9e6ee469e2993",
+              "url": "https://github.com/TsvetomirGT/SymphonyStation5/releases/download/v0.1.0/SymphonyStation5-v0.1.0.zip"
+            }
+          ],
+          "kind": "game",
+          "platform": "ps5",
+          "size": "12682118 B",
+          "title": "SymphonyStation5",
+          "title_id": "PPSA17641",
+          "version": "0.1.0"
+        }
+      },
+      "history_policy": "98aaf6e1ee5840e99df01dce7a95bf31be0711824833af74e3ce61e21773ca4d",
+      "last_success": "2026-10-21T14:52:11+00:00"
+    },
+    "vita5-developer": {
+      "active": {
+        "4d1b0f2aa9b5a810d5a3e66467ac331180cf583bb1aa85ce0816b1afd375a3b9": {
+          "atlas": {
+            "content_kind": "app",
+            "license": "GPL-3.0-or-later",
+            "prerelease": false,
+            "released": "2026-10-08T01:48:14Z",
+            "repository": "https://github.com/StonedModder/VITA5",
+            "upstream_format": "zip"
+          },
+          "description": "PS Vita USB streaming client for PS5. This catalog includes only the native PS5 app. Upstream also requires separately configured VitaUSBStream, a Vita input plugin and a PS5 dock payload; consult its release notes. Atlas does not install or configure those components.",
+          "files": [
+            {
+              "name": "PPSA17035.zip",
+              "sha256": "d4e23aa6e511c2d9b7905174b11f0a4a70cf7d0a457ec0a1772b02d5d7e6ea09",
+              "url": "https://github.com/StonedModder/VITA5/releases/download/v1.0.0/PPSA17035.zip"
+            }
+          ],
+          "kind": "game",
+          "platform": "ps5",
+          "size": "17790530 B",
+          "title": "VITA5",
+          "title_id": "PPSA17035",
+          "version": "1.0.0"
+        }
+      },
+      "current": {
+        "4d1b0f2aa9b5a810d5a3e66467ac331180cf583bb1aa85ce0816b1afd375a3b9": {
+          "atlas": {
+            "content_kind": "app",
+            "license": "GPL-3.0-or-later",
+            "prerelease": false,
+            "released": "2026-10-08T01:48:14Z",
+            "repository": "https://github.com/StonedModder/VITA5",
+            "upstream_format": "zip"
+          },
+          "description": "PS Vita USB streaming client for PS5. This catalog includes only the native PS5 app. Upstream also requires separately configured VitaUSBStream, a Vita input plugin and a PS5 dock payload; consult its release notes. Atlas does not install or configure those components.",
+          "files": [
+            {
+              "name": "PPSA17035.zip",
+              "sha256": "d4e23aa6e511c2d9b7905174b11f0a4a70cf7d0a457ec0a1772b02d5d7e6ea09",
+              "url": "https://github.com/StonedModder/VITA5/releases/download/v1.0.0/PPSA17035.zip"
+            }
+          ],
+          "kind": "game",
+          "platform": "ps5",
+          "size": "17790530 B",
+          "title": "VITA5",
+          "title_id": "PPSA17035",
+          "version": "1.0.0"
+        }
+      },
+      "fingerprint": "fbc234f4875c0834ebf44bb568ed3106f356e0c40e18e5610425fe2dd236f554",
+      "history": {
+        "4d1b0f2aa9b5a810d5a3e66467ac331180cf583bb1aa85ce0816b1afd375a3b9": {
+          "atlas": {
+            "content_kind": "app",
+            "license": "GPL-3.0-or-later",
+            "prerelease": false,
+            "released": "2026-10-08T01:48:14Z",
+            "repository": "https://github.com/StonedModder/VITA5",
+            "upstream_format": "zip"
+          },
+          "description": "PS Vita USB streaming client for PS5. This catalog includes only the native PS5 app. Upstream also requires separately configured VitaUSBStream, a Vita input plugin and a PS5 dock payload; consult its release notes. Atlas does not install or configure those components.",
+          "files": [
+            {
+              "name": "PPSA17035.zip",
+              "sha256": "d4e23aa6e511c2d9b7905174b11f0a4a70cf7d0a457ec0a1772b02d5d7e6ea09",
+              "url": "https://github.com/StonedModder/VITA5/releases/download/v1.0.0/PPSA17035.zip"
+            }
+          ],
+          "kind": "game",
+          "platform": "ps5",
+          "size": "17790530 B",
+          "title": "VITA5",
+          "title_id": "PPSA17035",
+          "version": "1.0.0"
+        }
+      },
+      "history_policy": "ed72705325b968d57c73aa0adb9b09fb35a3b942179585c3d814a8f165eb4a2a",
+      "last_success": "2026-10-21T14:52:11+00:00"
     }
   }
 }

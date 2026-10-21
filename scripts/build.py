@@ -90,7 +90,8 @@ def write_json(path, value):
     """Replace one complete JSON document, never leave a truncated catalog."""
     path.parent.mkdir(parents=True, exist_ok=True)
     data = json.dumps(value, ensure_ascii=False, sort_keys=True, indent=2, allow_nan=False) + '\n'
-    with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8', dir=path.parent, delete=False) as handle:
+    with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8', newline='\n',
+                                     dir=path.parent, delete=False) as handle:
         temp = Path(handle.name)
         handle.write(data)
     temp.replace(path)
@@ -106,13 +107,28 @@ def validate_entry(entry):
         if not isinstance(file, dict):
             raise ValueError('Invalid file')
         https_url(file.get('url'))
-        if 'sha256' in file and not re.fullmatch(r'[0-9a-fA-F]{64}', str(file['sha256'])):
+        if 'sha256' in file and (not isinstance(file['sha256'], str)
+                                 or not re.fullmatch(r'[0-9a-fA-F]{64}', file['sha256'])):
             raise ValueError('Invalid SHA-256')
-    for mirror in entry.get('source_sets', []):
+        if 'name' in file and not isinstance(file['name'], str):
+            raise ValueError('File name must be a string')
+    mirrors = entry.get('source_sets', [])
+    if not isinstance(mirrors, list) or any(not isinstance(m, dict) for m in mirrors):
+        raise ValueError('source_sets must be an array of mirror objects')
+    for mirror in mirrors:
         validate_entry({'title': entry['title'], 'files': mirror.get('files')})
-    for field in ('version', 'title_id', 'region', 'format', 'platform', 'kind'):
+    if mirrors and files != mirrors[0]['files']:
+        raise ValueError('Primary files must match the first source set')
+    if not isinstance(entry.get('atlas', {}), dict):
+        raise ValueError('atlas provenance must be an object')
+    for field in ('version', 'title_id', 'region', 'format', 'platform', 'kind',
+                  'firmware', 'description', 'cover', 'password', 'size'):
         if field in entry and not isinstance(entry[field], str):
             raise ValueError(f'{field} must be a string')
+    for field, allowed in (('platform', ('ps4', 'ps5')), ('kind', ('game', 'update', 'dlc')),
+                           ('format', ('exfat', 'ffpkg', 'ffpfs', 'ffpfsc', 'fpkg', 'pkg'))):
+        if field in entry and entry[field] not in allowed:
+            raise ValueError(f'Unsupported native {field}')
     digest(entry)
     return entry
 
@@ -144,6 +160,9 @@ def homebrew(payload, source):
         # ZIP is a transport container, not an exFAT/FFPKG image format.
         if app.get('format') in ('ffpkg', 'ffpfs', 'ffpfsc', 'exfat', 'pkg', 'fpkg'):
             entry['format'] = app['format']
+        for field in ('region', 'firmware'):
+            if field in app:
+                entry[field] = app[field]
         result.append(entry)
     return result, skipped
 
@@ -166,6 +185,10 @@ def pegasus(payload, source):
             if not isinstance(link, dict):
                 raise ValueError('Invalid Pegasus link')
             file = {'url': link.get('url')}
+            if 'sha256' in link:
+                file['sha256'] = link['sha256']
+            elif len(links) == 1 and 'sha256' in package:
+                file['sha256'] = package['sha256']
             # Pegasus name is the source label, not necessarily a filename.
             if package.get('filename') and len(links) == 1:
                 file['name'] = package['filename']
@@ -195,7 +218,8 @@ def pegasus(payload, source):
                  'atlas': {'original_package': package}}
         for a, b in [('titleId', 'title_id'), ('version', 'version'), ('region', 'region'),
                      ('format', 'format'), ('platform', 'platform'), ('firmware', 'firmware'),
-                     ('description', 'description'), ('posterUrl', 'cover')]:
+                     ('description', 'description'), ('posterUrl', 'cover'),
+                     ('password', 'password'), ('kind', 'kind'), ('size', 'size')]:
             if package.get(a) is not None:
                 entry[b] = package[a]
         result.append(entry)
@@ -231,6 +255,11 @@ def github_releases(source, fetcher):
                                    'released': release.get('published_at'), 'prerelease': release.get('prerelease', False)}}
                 if source.get('format'):
                     entry['format'] = source['format']
+                for field in ('region', 'firmware', 'cover'):
+                    if field in source:
+                        entry[field] = source[field]
+                entry['atlas']['content_kind'] = source.get('content_kind', 'game')
+                entry['atlas']['upstream_format'] = source.get('archive_format') or Path(asset['name']).suffix.lstrip('.').lower()
                 result.append(entry)
         if len(releases) < 100:
             return result, 0
@@ -256,25 +285,40 @@ def load_source(source, fetcher):
 def validate_config(config):
     if not isinstance(config, dict) or not isinstance(config.get('sources'), list):
         raise ValueError('Config needs sources array')
+    https_url(config.get('catalog_url'))
     ids = set()
     for source in config['sources']:
+        if not isinstance(source, dict):
+            raise ValueError('Source must be an object')
+        if 'enabled' in source and not isinstance(source['enabled'], bool):
+            raise ValueError('enabled must be a boolean')
         sid = source.get('id')
         if not isinstance(sid, str) or not re.fullmatch(r'[a-z0-9-]+', sid) or sid in ids:
             raise ValueError('Source IDs must be unique lowercase slugs')
         ids.add(sid)
         if not source.get('enabled', True):
             continue
+        if source.get('adapter', 'pegasus') not in ('native', 'pegasus', 'homebrew', 'github-releases'):
+            raise ValueError('Unknown adapter')
         authorization = source.get('authorization', {})
         if authorization.get('status') != 'approved' or not authorization.get('basis'):
             raise ValueError(f'{sid}: enabled source needs authorization evidence')
         https_url(authorization.get('evidence_url'))
         if source.get('adapter') == 'github-releases':
-            if not source.get('license'):
-                raise ValueError('Developer source needs license')
+            if 'include_prereleases' in source and not isinstance(source['include_prereleases'], bool):
+                raise ValueError('include_prereleases must be a boolean')
+            for field in ('license', 'repository', 'title', 'title_id', 'asset_pattern'):
+                if not isinstance(source.get(field), str) or not source[field].strip():
+                    raise ValueError(f'Developer source needs {field}')
         else:
             https_url(source.get('url'))
-        if source.get('adapter') == 'homebrew' and not source.get('allow_repositories'):
-            raise ValueError('Homebrew feed needs reviewed repository allowlist')
+        if source.get('adapter') == 'homebrew':
+            allowed = source.get('allow_repositories')
+            if not isinstance(allowed, list) or not allowed or len(set(allowed)) != len(allowed):
+                raise ValueError('Homebrew feed needs unique reviewed repository allowlist')
+            for repo in allowed:
+                if not isinstance(repo, str) or not re.fullmatch(r'https://github.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+', repo):
+                    raise ValueError('Expected canonical GitHub developer repository')
 
 
 def entry_identity(entry):
@@ -289,8 +333,26 @@ def entry_identity(entry):
 def group_identity(entry):
     # Homebrew titles sometimes share a title ID: keep their developers separate.
     return (entry.get('title_id') or entry['title'].casefold(), entry.get('platform', 'ps5'),
-            entry.get('kind', 'game'), entry.get('region', ''), entry.get('format', ''),
+            entry.get('kind', 'game'), entry.get('region', ''),
+            entry.get('format') or entry.get('atlas', {}).get('upstream_format', ''),
             entry.get('atlas', {}).get('repository', ''))
+
+
+def history_policy(source):
+    """History can survive presentation/allowlist edits, never a new origin or grant."""
+    return digest({k: v for k, v in source.items()
+                   if k not in ('name', 'description', 'allow_repositories')})
+
+
+def retained_history(previous, source):
+    if (previous.get('fingerprint') != digest(source)
+            and previous.get('history_policy') != history_policy(source)):
+        return {}
+    history = dict(previous.get('history', {}))
+    if source.get('adapter') == 'homebrew':
+        allowed = source['allow_repositories']
+        history = {k: e for k, e in history.items() if e.get('atlas', {}).get('repository') in allowed}
+    return history
 
 
 def version_key(version):
@@ -314,13 +376,15 @@ def build(config_path, out, fetcher=fetch, now=None):
         state = {'schema': 1, 'sources': {}}
         published = {}
         fresh = 0
-        for source in config['sources']:
+        for source in sorted(config['sources'], key=lambda s: s['id']):
             sid = source['id']
             if not source.get('enabled', True):
                 report['sources'].append({'id': sid, 'status': 'disabled', 'reason': source.get('disabled_reason', '')})
                 continue
             fingerprint = digest(source)
             previous = old['sources'].get(sid, {})
+            history = retained_history(previous, source)
+            past_active = {k: e for k, e in previous.get('active', {}).items() if k in history}
             if previous.get('fingerprint') != fingerprint:
                 previous = {}
             stats = {'id': sid}
@@ -330,7 +394,6 @@ def build(config_path, out, fetcher=fetch, now=None):
                     raise ValueError('Source empty or exceeds record limit')
                 records = [validate_entry(e) for e in records]
                 current = {entry_identity(e): e for e in records}
-                history = dict(previous.get('history', {}))
                 history.update(current)
                 # Preserve older versions only while the same app/region/format is still listed.
                 # A removed app or replaced mirror does not remain an active download.
@@ -338,11 +401,11 @@ def build(config_path, out, fetcher=fetch, now=None):
                 for e in current.values():
                     groups.setdefault(group_identity(e), set()).add(e.get('version'))
                 active = dict(current)
-                for key, entry in history.items():
+                for key, entry in past_active.items():
                     versions = groups.get(group_identity(entry))
                     if versions and entry.get('version') and entry['version'] not in versions:
                         active[key] = entry
-                cached = {'fingerprint': fingerprint, 'last_success': stamp,
+                cached = {'fingerprint': fingerprint, 'history_policy': history_policy(source), 'last_success': stamp,
                           'current': current, 'active': active, 'history': history}
                 stats.update(status='ok', records=len(current), historical_records=len(active)-len(current), filtered=skipped)
                 fresh += 1
@@ -351,7 +414,7 @@ def build(config_path, out, fetcher=fetch, now=None):
                 stats.update(status='error', detail=f'{type(exc).__name__}: {exc}'[:250])
                 if previous:
                     age = now - datetime.fromisoformat(previous['last_success'])
-                    if age <= timedelta(days=7):
+                    if timedelta(0) <= age <= timedelta(days=7):
                         stats['status'] = 'stale'
                         stats['last_success'] = previous['last_success']
                     else:

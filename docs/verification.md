@@ -1,37 +1,38 @@
 # Verification evidence — 2026-10-21
 
-## Completed locally
+## Current implementation
 
-| Check | Result |
-| --- | --- |
-| Original generator | 3,206 package records fetched from its three configured endpoints; no binaries fetched |
-| Regression suite, Python 3.12 | 23 tests passed |
-| Regression suite, Python 3.14.8 | The same 23 tests passed |
-| Workflow lint | actionlint 1.7.12 passed for both workflows |
-| Native catalog contract | 4 entries, unique IDs, valid HTTPS links/hashes, matching release index, source list and approved source state |
-| Live rebuilt catalog | 3 allowlisted homebrew-feed records and 1 developer-release record |
-| Publisher asset verification | All 4 file URLs exist in the named published GitHub releases; all 4 SHA-256 values match GitHub's asset metadata |
-| Repeat refresh | Client catalog stays byte-for-byte identical for unchanged records; report/check timestamps can change |
-| Console operations | None: no console discovery, connection, upload, payload execution or settings changes |
+The expanded catalog contains seven titles from five enabled sources: three reviewed feed records and four developer-release records. All four original content IDs remain present. DLPS, Pippo and PFS remain disabled. There were no open repository issues or pull requests at the start of this continuation.
 
-The tests cover total/partial outages, stale cache expiration, configuration changes, disabled sources, malformed/empty sources, duplicate records, source ordering, versions/regions/formats/mirrors, opaque Pegasus edition metadata, ordered multipart archives, historical releases, removed apps/mirrors, GitHub release pagination/drafts/prereleases/digests, public HTTPS restrictions, retry/size limits and publisher verification failures.
+Local verification on Windows with Python 3.14.2:
 
-## GitHub Actions attempt
+- 41 offline regression tests passed, covering generator, publisher checks and the output contract.
+- All 41 regressions also passed with Python optimization enabled; optimization cannot disable the validator's rejection checks.
+- Both workflows passed actionlint 1.7.12, using the upstream Windows release verified against SHA-256 `6e7241b51e6817ea6a047693d8e6fed13b31819c9a0dd6c5a726e1592d22f6e9`.
+- All seven current assets matched their named developer release, published state and SHA-256 metadata.
+- An unchanged repeat refresh produced byte-for-byte identical `catalog.json`.
+- Offline validation confirmed content IDs, digest, source fingerprints, current/active/history snapshots, release-index provenance and numeric latest-version flags.
+- All three added sources refreshed successfully; the reviewed feed filtered 100 unapproved records.
 
-The first branch push started workflow records but every job was rejected **before runner startup**, with no executed steps. GitHub reported an account-level restriction. This is infrastructure/account blocking, not a passing cloud test and not evidence of a code/test failure.
+The new regressions cover allowlist expansion/removal, preservation of history across presentation edits, invalidation of stale cache on any config change, superseded mirror resurrection, deterministic provenance across source ordering, archive grouping, homebrew region/firmware, Pegasus password/checksum propagation, all alternative mirror files, stale/historical verification skips, uppercase checksum equivalence, native field/mirror types, optimized validation, isolated output configuration, duplicate/tampered release indices and native upstream IDs.
 
-- [Update workflow attempt](https://github.com/Apisalam/ps5-atlas/actions/runs/39614701756)
-- [Python matrix workflow attempt](https://github.com/Apisalam/ps5-atlas/actions/runs/39614701708)
-- [Change review](https://github.com/Apisalam/ps5-atlas/pull/1)
+## GitHub Actions
 
-The workflow definitions are syntax-checked locally, contain real test/build/validation steps, and configure a six-hour schedule on main. Successful cloud execution, artifact upload and bot publication remain unverified until GitHub Actions is available again. Once restored, run **Update PS5 Atlas catalog** on main and inspect both its validation steps and the resulting generated metadata commit.
+Current expansion runs will be recorded here after execution. The branch update workflow builds and uploads evidence without publishing. Once merged, the main update workflow additionally commits validated generated metadata.
 
-## Limits of this verification
+Earlier verified baseline runs (four titles, 23 tests) remain available as historical evidence:
 
-Metadata only: no binary bytes were downloaded, so this does not independently recompute file hashes. The client retains the expected hashes for its own download verification. PS5 Library compatibility was checked against the documented JSON contract; its console parser and application runtime were not executed. No firmware compatibility is claimed. Third-party availability and licensing may change after this snapshot.
+- [Update workflow 39615294107](https://github.com/Apisalam/ps5-atlas/actions/runs/39615294107): successful build, validation, metadata verification, artifact upload and bot commit.
+- [Test workflow 39617775971](https://github.com/Apisalam/ps5-atlas/actions/runs/39617775971): successful Python 3.12 and 3.14 checks.
 
-## Follow-up: verified GitHub runner execution
+Earlier failed attempts were rejected before runner startup. The successful baseline runs superseded that infrastructure blocker; they do not establish the expanded implementation's result.
 
-On 2026-10-21, [Update PS5 Atlas catalog run 39615294107](https://github.com/Apisalam/ps5-atlas/actions/runs/39615294107) completed successfully on `main`. The runner executed checkout, Python setup, generator tests, building, schema validation, metadata/link verification, artifact upload and a generated metadata commit (`c675e39b2e85e9d03f9baa865e1bccf6e33bd123`). The checked-in build report records 4 entries and source status `ok` at 2026-10-21T14:24:48Z. This supersedes the original account-level blocker for the update workflow. A single successful scheduled-capable run does not prove future cron reliability or native console runtime compatibility.
+CI now additionally lints both workflows with actionlint 1.7.12 and verifies the Linux download against SHA-256 `8aca8db96f1b94770f1b0d72b6dddcb1ebb8123cb3712530b08cc387b349a3d8`. Regression suites remain serial on one runner per workflow, on Python 3.12 and 3.14. The update workflow saves generated files as an artifact, including on failure; it publishes catalogs only after successful validation on main. A total build failure saves only its error report.
 
-The standalone test workflow was modified in commit `6968d2717b842c2d24a75e9da70b5d5caff87903` to run Python 3.12 and 3.14 serially on one runner, add manual dispatch, and avoid concurrent runner allocation. Its new cloud outcome must be checked independently; earlier failed runs had empty runner steps.
+## Verification limits
+
+Only JSON, source/license documentation and release metadata were fetched for catalog research and verification. No game or homebrew binary was downloaded. Publisher hashes were compared as metadata, not independently recomputed from binary bytes. The actionlint executable is a development verification tool, separate from catalog content.
+
+PS5 Library compatibility was checked against its documented native catalog contract at commit `0d6bc369a4846cd4f358efc2646eb4a33653c941`. The console parser and runtime were not executed. No console was discovered, contacted, configured or administered; no payload was sent. No firmware compatibility is claimed.
+
+Stale and retained historical entries are explicitly skipped by live publisher verification; their continued availability is not asserted. Future scheduled runs depend on GitHub Actions availability, and third-party availability or licensing can change. Review additions and rights changes using the evidence in [source research](sources.md).

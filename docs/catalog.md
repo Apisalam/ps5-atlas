@@ -8,7 +8,7 @@ The primary reference is PS5 Library's [catalog documentation](https://github.co
 {"entries":[{"id":"stable-id","title":"App","title_id":"PPSA12345","version":"1.2","files":[{"url":"https://publisher.example/app.zip","name":"app.zip","sha256":"64 hexadecimal characters"}]}]}
 ```
 
-The schema validator runs offline. This is a contract check, not execution of PS5 Library's console parser. The console has not been contacted or tested.
+The schema validator runs offline and checks content-derived IDs, the catalog digest, every source snapshot, configuration fingerprints, release-index provenance and version flags. Checks remain enabled under Python optimization. Use `--config` together with `--root` when validating a separate output directory. This is a contract check, not execution of PS5 Library's console parser. The console has not been contacted or tested.
 
 `atlas` contains additional provenance for inspection; the documented client fields stay at entry level. A homebrew `kind` of `app` or `tool` is recorded as `atlas.content_kind`: the native client documents `game`, `update` and `dlc`, so homebrew titles use `game`. ZIP is an archive/container and is retained as `atlas.upstream_format`, not mislabeled as an exFAT or FFPKG image. Image formats remain separate. No firmware is inferred.
 
@@ -17,17 +17,21 @@ Pegasus's `url`/`filename` and `downloadLinks` forms are converted to native ent
 ## Identity and preservation
 
 - Content-derived IDs do not depend on upstream ordering or build timestamps. Only identical client-facing entries deduplicate; versions, regions, formats, files, mirror lists and unknown native fields are not collapsed.
-- Every successful source snapshot is saved in `catalog-state.json`. Earlier versions continue in the active catalog while the same title/region/format/developer group still exists. A replaced mirror for the same version or a completely removed app is retained in history, but is no longer published as an active download.
+- Every successful source snapshot is saved in `catalog-state.json`. Earlier versions continue in the active catalog while the same title/region/format/developer group still exists. A replaced mirror for the same version or a completely removed app is retained in history, but is no longer published as an active download. Later version updates cannot resurrect such withdrawn links: only previously active records are eligible for retention.
 - `releases.json` labels active records `current` or `historical`. Historical means previously observed, not freshly tested. No historical link-availability claim is made.
 - Title IDs are combined with developer repository identity where available, so unrelated homebrew apps sharing an ID are not merged. For sources without title IDs, exact case-insensitive titles are the fallback; Atlas does not guess that similarly named editions are one game.
-- `latest_in_variant` compares only plain numeric release versions, numerically (`1.10 > 1.9`), within title/platform/kind/region/format/developer groups. Unknown tags have `null` and are not ranked. Prerelease flags remain in provenance. It means latest observed listed version, not the latest PlayStation Store version, latest stable release, firmware compatibility, or proof a download works.
+- `latest_in_variant` compares only plain numeric release versions, numerically (`1.10 > 1.9`), within title/platform/kind/region/format/developer groups. Archive containers also distinguish groups when no native image format is given. Unknown tags have `null` and are not ranked. Prerelease flags remain in provenance. It means latest observed listed version, not the latest PlayStation Store version, latest stable release, firmware compatibility, or proof a download works.
 - Feed adapters accumulate history from the first successful observation onward. They cannot recover versions never published in that feed. GitHub Releases additionally imports matching historical releases with pagination (100/page, maximum 20 pages); reaching the cap fails rather than silently truncating.
 
 ## Failure behavior
 
 All entries of a source are validated before replacing its snapshot. One malformed entry rejects the source as a unit, avoiding silent partial loss. Empty sources also fail as suspicious, so an intentional complete withdrawal requires disabling/removing the source in configuration.
 
-Partial failures retain a matching cached source for seven days; the release index marks it stale. A source configuration fingerprint prevents cache reuse after a URL, authorization or adapter change. Disabled/removed sources do not enter the next successful catalog/state. A totally failed build preserves the previously published files, writes a fresh failure report and returns exit code 1. Consequently configuration changes, including removals, take effect in published data on the next successful build; inspect failures immediately if withdrawing authorization.
+Partial failures retain a matching cached source for seven days; the release index marks it stale. A full source configuration fingerprint prevents stale-cache reuse after any source configuration change. A separate history policy allows accumulated versions to survive presentation changes or homebrew allowlist expansion after a successful fetch; allowlist removal prunes that repository's history. URL, authorization, adapter and other policy changes invalidate history as well. Legacy state acquires this policy on its first successful unchanged refresh.
+
+Disabled/removed sources do not enter the next successful catalog/state. A totally failed build preserves the previously published files, writes a fresh failure report and returns exit code 1. Consequently configuration changes, including removals, take effect in published data on the next successful build; inspect failures immediately if withdrawing authorization.
+
+Live verification checks all fresh current primary/mirror/multipart files against the named GitHub release and its published digest. Stale and retained historical entries are counted as skipped and are not probed. A missing or changed fresh asset fails validation and prevents the workflow from publishing any generated catalog. This prevents the live check from defeating the documented partial-outage fallback.
 
 Each JSON document is written to a temporary file and replaced atomically. Generated outputs are committed together by Git. The client catalog content digest remains stable when entries are unchanged; the build report and snapshot check times still update. Local outputs may change before later validation fails, but Actions publishes none of them after a validation failure.
 
@@ -48,6 +52,6 @@ This is an auditable review record, not an automatic legal determination. Never 
 | `native` | `url` returning `entries` |
 | `pegasus` | `url` returning `packages` |
 | `homebrew` | `url` returning `apps`, `allow_repositories` reviewed URLs; pinned developer release and license required per imported app |
-| `github-releases` | `repository` (`owner/repo`), `title`, `title_id`, `license`, `asset_pattern`; optional `include_prereleases`, `description`, `format` |
+| `github-releases` | `repository` (`owner/repo`), `title`, `title_id`, `license`, `asset_pattern`; optional boolean `include_prereleases`, `description`, native image `format`, `archive_format`, `content_kind`, `region`, `firmware`, `cover` |
 
 GitHub release assets require a publisher SHA-256 digest. Automatic imports are limited to the approved repository and explicit filename pattern, preventing accidental inclusion of source archives or another platform's binary. New publishers and changed distribution rights still need human review. No private API credentials are used.
