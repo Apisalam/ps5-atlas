@@ -1,29 +1,74 @@
 name: Update PS5 Atlas catalog
 on:
+  push:
+    branches: [main, 'codex/**']
+    paths:
+      - 'scripts/**'
+      - 'tests/**'
+      - 'atlas-sources.json'
+      - '.github/workflows/update-catalog.yml'
   schedule:
     - cron: '17 */6 * * *'
   workflow_dispatch:
 permissions:
-  contents: write
+  contents: read
 concurrency:
-  group: update-atlas
+  group: update-atlas-${{ github.ref }}
   cancel-in-progress: false
 jobs:
   update:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: ${{ github.ref == 'refs/heads/main' }}
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: '3.12'
+      - name: Test generator
+        run: python -m unittest discover -s tests -v
       - name: Build catalog
+        id: build
+        continue-on-error: true
         run: python scripts/build.py
-      - name: Commit generated catalog
+      - name: Validate generated catalog
+        id: validate
+        if: steps.build.outcome == 'success'
+        run: |
+          python scripts/validate.py
+          python scripts/check_links.py
+      - name: Preserve build evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: atlas-build-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            catalog.json
+            catalog-state.json
+            releases.json
+            sources.json
+            build-report.json
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Commit generated metadata
+        if: always() && github.ref == 'refs/heads/main' && (steps.build.outcome == 'failure' || steps.validate.outcome == 'success')
+        env:
+          BUILD_OUTCOME: ${{ steps.build.outcome }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add catalog.json build-report.json
+          if [ "$BUILD_OUTCOME" = "failure" ]; then
+            git add -- build-report.json
+          else
+            git add -- catalog.json catalog-state.json releases.json sources.json build-report.json
+          fi
           if ! git diff --cached --quiet; then
             git commit -m "Refresh PS5 Atlas catalog"
-            git push
+            git push origin HEAD:main
           fi
+      - name: Fail visibly when no fresh source was available
+        if: steps.build.outcome == 'failure'
+        run: exit 1

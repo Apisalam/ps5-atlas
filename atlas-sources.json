@@ -1,19 +1,61 @@
 {
+  "catalog_url": "https://raw.githubusercontent.com/Apisalam/ps5-atlas/main/catalog.json",
   "sources": [
     {
+      "id": "homebrew-reviewed",
+      "name": "PS5 Homebrew Catalog — reviewed publishers",
+      "adapter": "homebrew",
+      "url": "https://prosperostore.net/catalog/v1.json",
+      "enabled": true,
+      "allow_repositories": [
+        "https://github.com/STL1te/MedievalTennis",
+        "https://github.com/darkxex/PS5_Celeste",
+        "https://github.com/LedyBacer/ProsperoLight"
+      ],
+      "authorization": {
+        "status": "approved",
+        "basis": "Reviewed open-source homebrew listings (MIT/GPL), pinned downloads from each listed developer's own releases; only the reviewed repositories are imported.",
+        "evidence_url": "https://github.com/darkxex/ps5-homebrew-catalog/blob/main/docs/review-policy.md"
+      }
+    },
+    {
+      "id": "supertuxkart-developer",
+      "name": "SuperTuxKart — developer releases",
+      "adapter": "github-releases",
+      "repository": "Marice/stk-ps5",
+      "title": "SuperTuxKart",
+      "title_id": "PPSA69421",
+      "asset_pattern": "PPSA69421.zip",
+      "include_prereleases": true,
+      "license": "GPL-3.0-or-later",
+      "description": "Native PS5 port of SuperTuxKart. Alpha builds may have bugs; the developer's release notes describe known limitations.",
+      "enabled": true,
+      "authorization": {
+        "status": "approved",
+        "basis": "Developer publishes the native title under GPL-3.0-or-later; bundled SuperTuxKart data retains its own licenses and credits. Links point to the developer's releases and preserve GitHub's asset SHA-256.",
+        "evidence_url": "https://github.com/Marice/stk-ps5#licences-and-credits"
+      }
+    },
+    {
+      "id": "dlps",
       "name": "DLPS",
       "url": "https://pegasus-catalog.fly.dev/catalogs/dlps.json",
-      "enabled": true
+      "enabled": false,
+      "disabled_reason": "Public reachability was confirmed, but permission to redistribute the listed downloads was not established. Needs documented authorization before enabling."
     },
     {
+      "id": "pippo",
       "name": "Pippo",
       "url": "https://pegasus-catalog.fly.dev/catalogs/pippo.json",
-      "enabled": true
+      "enabled": false,
+      "disabled_reason": "Public reachability was confirmed, but permission to redistribute the listed downloads was not established. Needs documented authorization before enabling."
     },
     {
+      "id": "pfs",
       "name": "PFS",
       "url": "https://pegasus-catalog.fly.dev/catalogs/pfs.json",
-      "enabled": true
+      "enabled": false,
+      "disabled_reason": "Public reachability was confirmed, but permission to redistribute the listed downloads was not established. Needs documented authorization before enabling."
     }
   ]
 }
