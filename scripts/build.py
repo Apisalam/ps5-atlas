@@ -90,7 +90,8 @@ def write_json(path, value):
     """Replace one complete JSON document, never leave a truncated catalog."""
     path.parent.mkdir(parents=True, exist_ok=True)
     data = json.dumps(value, ensure_ascii=False, sort_keys=True, indent=2, allow_nan=False) + '\n'
-    with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8', dir=path.parent, delete=False) as handle:
+    with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8', newline='\n',
+                                     dir=path.parent, delete=False) as handle:
         temp = Path(handle.name)
         handle.write(data)
     temp.replace(path)
