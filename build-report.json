@@ -1,6 +1,6 @@
 {
   "catalog_version": "c7dc9006180085885dc321fa2dec495ff80039ea033cce4ee9f9235fa1de30ce",
-  "checked_at": "2026-10-25T04:37:50+00:00",
+  "checked_at": "2026-10-25T11:23:33+00:00",
   "records": 7,
   "sources": [
     {
@@ -9,7 +9,7 @@
       "status": "disabled"
     },
     {
-      "filtered": 125,
+      "filtered": 126,
       "historical_records": 0,
       "id": "homebrew-reviewed",
       "records": 3,
